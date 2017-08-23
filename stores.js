@@ -5,6 +5,17 @@ router.get('/', function(req, res) {
   res.send(STORES);
 });
 
+router.get('/:id', function(req, res) {
+  var index = req.params.id;
+  if (index < STORES.length) {
+      res.send(STORES[index]);
+  } else {
+    res.status(401).send({
+        "message": "Store "+index+" not found"
+    });
+  }
+});
+
 const STORES = [
     {
         "id" : 1,
