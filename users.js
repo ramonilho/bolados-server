@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    console.log("========== GET ==========")
+    console.log("========== GET / ==========")
     console.log("Request headers:");
     for (var header in req.headers) {
         console.log("# header["+header+"] ::: "+req.headers[header]);
@@ -34,11 +34,29 @@ router.get('/', function(req, res) {
     }
 });
 
+router.get('/u/:id', function(req, res) {
+    console.log("USER: get id: "+req.params.id)
+    var found = false
+    for (var user in USERS) {
+        if (USERS.hasOwnProperty(user)) {
+            var element = USERS[user];
+            if (element.id == req.params.id) {
+                found = true
+                res.send(element);
+                break
+            }
+        }
+    }
+    if (found == false) {
+        res.status(401).send({
+            "message": "User not found."
+        });
+    }
+});
+
 router.put('/', function(req, res) {
     console.log("========== PUT ==========")
-
     console.log("*******\n>current USERS: "+JSON.stringify(USERS, null, "  ")+"\n*******");
-
 
     // Parsing request body
     var body = [];
@@ -74,41 +92,52 @@ router.put('/', function(req, res) {
         }
     
         console.log("*******\n>after change USERS: "+JSON.stringify(USERS, null, "  ")+"\n*******");
+    }); 
+});
+
+router.get('/mocked', function(req, res) {
+    console.log("")
+    // Returning first element for mocked request
+    for (var u in USERS) {
+        if (USERS.hasOwnProperty(u)) {
+            var element = USERS[u];
+            res.send(USERS[u]);
+            break
+        }
+    }
+});
+
+router.post('/', function(req, res) {
+    console.log("========== POST ==========")
+    console.log("*******\n>current USERS: "+JSON.stringify(USERS, null, "  ")+"\n*******");
+
+    // Parsing request body
+    var body = [];
+    req.on('data', function(chunk) {
+        body.push(chunk);
+    }).on('end', function() {
+
+        body = Buffer.concat(body).toString();
+        var requestObj = JSON.parse(body);
+        console.log("request object:");
+        console.log(requestObj);
+
+        var newId = USERS[USERS.length - 1].id + 1;
+        
+        newUser = requestObj
+        newUser["id"] = USERS[USERS.length - 1].id + 1,
+        newUser["storeId"] = USERS[USERS.length - 1].storeId + 1,
+    
+        USERS.push(newUser);
+
+        res.send(newUser)
+    
+        console.log("*******\n>after change USERS: "+JSON.stringify(USERS, null, "  ")+"\n*******");
     });
+
     
 });
 
-const USERS = [
-    {
-        "id" : 1,
-        "email" : "ramon@email.com",
-        "password" : "1234",
-        "name" : "Ramon Honório",
-        "creationDate" : "2017-01-01",
-        "streetAddress" : "Avenida Paulista, 1201 - São Paulo, SP",
-        "photo" : null,
-        "storeId" : 0
-    },
-    {
-        "id" : 2,
-        "email" : "eoq@email.com",
-        "password" : "1234",
-        "name" : "EoQ user",
-        "creationDate" : "2017-01-01",
-        "streetAddress" : "Avenida Paulista, 1200 - São Paulo, SP",
-        "photo" : null,
-        "storeId" : 0
-    },
-    {
-        "id" : 3,
-        "email" : "",
-        "password" : "",
-        "name" : "Empty user",
-        "creationDate" : "2017-01-01",
-        "streetAddress" : "Avenida Paulista, 1200 - São Paulo, SP",
-        "photo" : null,
-        "storeId" : 0
-    }
-]
+
 
 module.exports = router;

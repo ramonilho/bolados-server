@@ -6,49 +6,100 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  var index = req.params.id;
-  if (index < STORES.length) {
-      res.send(STORES[index]);
-  } else {
-    res.status(401).send({
-        "message": "Store "+index+" not found"
-    });
-  }
+    var found = false
+    for (var store in STORES) {
+        if (STORES.hasOwnProperty(store)) {
+            var element = STORES[store];
+            if (element.id == req.params.id) {
+                found = true
+                res.send(element);
+                break
+            }
+        }
+    }
+    if (found == false) {
+        res.status(401).send({
+            "message": "No store found."
+        });
+    }
 });
 
-const STORES = [
-    {
-        "id" : 1,
-        "name" : "Tradicional",
-        "category" : "Cakes",
-        "description" : "O segredo da Tradicional Bolos Caseiros é a fabricação artesanal, fazendo com que cada pedaço de bolo seja legitimamente caseiro.",
-        "addressName" : "Rua Clodomiro Amazonas, 1200",
-        "city" : "São Paulo - SP",
-        "urlLogo" : "/cake-images/tradicional-3.png",
-        "email" : "tradicional@email.com",
-        "phone" : "(11) 4002-8922",
-        "rating" : 4.7,
-        "priceAverage" : 3,
-        "pictures" : [
-            "/cake-images/tradicional-3.png", "/cake-images/tradicional-1.jpg", "/cake-images/tradicional-2.jpg", "/cake-images/tradicional-4.jpg"
-        ]
-    },
-    {
-        "id" : 2,
-        "name" : "Vovó Lurdes",
-        "category" : "Salgadinhos",
-        "description" : "Vendo salgados para festas",
-        "addressName" : "Avenida Santo Amaro, 3122",
-        "city" : "São Paulo - SP",
-        "urlLogo" : "/cake-images/partysnacks-0.jpg",
-        "email" : "vovo@email.com",
-        "phone" : "(11) 3833-4051",
-        "rating" : 3.8,
-        "priceAverage" : 1,
-        "pictures" : [
-            "/cake-images/partysnacks-0.jpg", "/cake-images/partysnacks-2.jpg", "/cake-images/partysnacks-3.jpg", "/cake-images/partysnacks-4.jpg",
-        ]
-    }
-]
+router.put('/', function(req, res) {
+    console.log("========== PUT ==========")
+    console.log("*******\n>current STORES: "+JSON.stringify(STORES, null, "  ")+"\n*******");
+
+    // Parsing request body
+    var body = [];
+    req.on('data', function(chunk) {
+        body.push(chunk);
+    }).on('end', function() {
+
+        body = Buffer.concat(body).toString();
+        var requestObj = JSON.parse(body);
+        console.log(requestObj);
+
+        var foundStore = false
+        
+        for (var store in STORES) {
+            if (STORES.hasOwnProperty(store)) {
+                var element = STORES[store];
+                if (element.id == requestObj.id) {
+                    STORES[store] = requestObj
+                    foundStore = true
+                    break
+                }
+            }
+        }
+    
+        if(foundStore == true){
+            console.log("Found store!")
+            res.send(requestObj)
+        } else {
+            console.log("Store not found")
+            res.status(401).send({
+                "message": "Store not found"
+            });
+        }
+    
+        console.log("*******\n>after change STORES: "+JSON.stringify(STORES, null, "  ")+"\n*******");
+    }); 
+});
+
+router.post('/', function(req, res) {
+    console.log("========== POST ==========")
+    console.log("*******\n>current STORES: "+JSON.stringify(STORES, null, "  ")+"\n*******");
+
+    // Parsing request body
+    var body = [];
+    req.on('data', function(chunk) {
+        body.push(chunk);
+    }).on('end', function() {
+
+        body = Buffer.concat(body).toString();
+        var requestObj = JSON.parse(body);
+        console.log(requestObj);
+        
+        var newId = USERS[USERS.length - 1].id + 1;
+        
+        newStore = requestObj
+        newStore["id"] = STORES[STORES.length - 1].id + 1
+
+        for (var user in USERS) {
+            if (USERS.hasOwnProperty(user)) {
+                var element = USERS[user];
+                if (element.id == requestObj.userId) {
+                    USERS[user].storeId = newStore["id"]
+                    break
+                }
+            }
+        }
+    
+        STORES.push(newStore);
+        
+        res.send(newStore)
+
+        console.log("*******\n>after change STORES: "+JSON.stringify(STORES, null, "  ")+"\n*******");
+    }); 
+});
 
 module.exports = router;
