@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use('/stores', stores);
 app.use('/users', users);
 
-var server = app.listen(3000);
+var server = app.listen(process.env.PORT || 3000);
 
 var net = require('net');
 
