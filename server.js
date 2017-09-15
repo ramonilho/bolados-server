@@ -63,16 +63,16 @@ USERS = [
       "photo" : null,
       "storeId" : 102
   },
-  {
-      "id" : 3,
-      "email" : "",
-      "password" : "",
-      "name" : "Empty user",
-      "creationDate" : "2017-01-01",
-      "streetAddress" : "Avenida Paulista, 1203 - São Paulo, SP",
-      "photo" : null,
-      "storeId" : 103
-  }
+//   {
+//       "id" : 3,
+//       "email" : "",
+//       "password" : "",
+//       "name" : "Empty user",
+//       "creationDate" : "2017-01-01",
+//       "streetAddress" : "Avenida Paulista, 1203 - São Paulo, SP",
+//       "photo" : null,
+//       "storeId" : 103
+//   }
 ]
 
 STORES = [
@@ -82,7 +82,7 @@ STORES = [
       "name" : "Tradicional",
       "category" : "Cakes",
       "description" : "O segredo da Tradicional Bolos Caseiros é a fabricação artesanal, fazendo com que cada pedaço de bolo seja legitimamente caseiro.",
-      "addressName" : "Rua Clodomiro Amazonas, 1200\nSão Paulo - SP, Brasil",
+      "addressName" : "Rua Clodomiro Amazonas, 150",
       "city" : "São Paulo - SP",
       "urlLogo" : "/cake-images/tradicional-3.png",
       "email" : "tradicional@email.com",
@@ -92,8 +92,8 @@ STORES = [
       "pictures" : [
           "/cake-images/tradicional-3.png", "/cake-images/tradicional-1.jpg", "/cake-images/tradicional-2.jpg", "/cake-images/tradicional-4.jpg"
       ],
-      "latitude": -23.5644,
-      "longitude": -46.6526,
+      "latitude": -23.585623,
+      "longitude": -46.679804,
   },
   {
       "id" : 102,
@@ -101,7 +101,7 @@ STORES = [
       "name" : "Vovó Lurdes",
       "category" : "Party Snacks",
       "description" : "Vendo salgados para festas",
-      "addressName" : "Avenida Santo Amaro, 3122\nSão Paulo - SP, Brasil",
+      "addressName" : "Avenida Santo Amaro, 3122",
       "city" : "São Paulo - SP",
       "urlLogo" : "/cake-images/partysnacks-0.jpg",
       "email" : "vovo@email.com",
