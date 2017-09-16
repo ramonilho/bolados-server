@@ -61,7 +61,7 @@ USERS = [
       "creationDate" : "2017-01-01",
       "streetAddress" : "Avenida Paulista, 1202 - São Paulo, SP",
       "photo" : null,
-      "storeId" : 102
+      "storeId" : 104
   },
 //   {
 //       "id" : 3,
