@@ -97,7 +97,7 @@ STORES = [
   },
   {
       "id" : 102,
-      "userId" : 2,
+      "userId" : 4,
       "name" : "Vovó Lurdes",
       "category" : "Party Snacks",
       "description" : "Vendo salgados para festas",
