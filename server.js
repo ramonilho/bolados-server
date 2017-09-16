@@ -41,7 +41,7 @@ USERS = [
       "creationDate" : "2017-01-01",
       "streetAddress" : "Avenida Paulista, 1001 - São Paulo, SP",
       "photo" : null,
-      "storeId" : 100
+      "storeId" : 103
   },
   {
       "id" : 1,
@@ -114,4 +114,23 @@ STORES = [
       "latitude": -23.611451,
       "longitude": -46.677783,
   },
+  {
+    "addressName": "Av. Paulista, 1100",
+    "category": "Other",
+    "city": "São Paulo - SP",
+    "description": "Vendo doces caseiros semelhantes a \n- Jellybeans\n- Kitkats\n- Marshmallows\n- Oreo",
+    "email": "heider@fiap.com.br",
+    "id": 103,
+    "latitude": -23.5640803,
+    "longitude": -46.6524362,
+    "name": "Lojinha do Heider",
+    "phone": "1100000000",
+    "pictures" : [
+        "/candies/jellybeans.png", "/candies/marshmallows.png", "/candies/kitkat.png", "/candies/oreos.png",
+    ],
+    "priceAverage": 3,
+    "rating": 5,
+    "urlLogo": "/candies/marshmallows.png",
+    "userId": 0
+  }
 ]
